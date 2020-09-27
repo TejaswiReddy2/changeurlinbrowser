@@ -1,0 +1,174 @@
+
+<title>Change URL in Browser</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+  <h2 style="text-align: center;padding-bottom: 5%">Change URL in browser without refreshing page</h2>
+  <div class="container">
+    <div class="col-md-12">
+    <a href="https://vbloggers.in/demo/changeurlinbrowser/url-in-browser.html" class="btn btn-success">Reset</a>
+     </div> 
+    <div class="col-md-4">
+    <h4>Checkboxes</h4>
+    <label class="container">One
+      <input value="checkboxvalue1" class="checkboxType" type="checkbox" >
+    </label>
+    <label class="container">Two
+      <input value="checkboxvalue2" class="checkboxType" type="checkbox">
+    </label>
+    <label class="container">Three
+      <input value="checkboxvalue3" class="checkboxType" type="checkbox">
+    </label>
+    <label class="container">Four
+      <input value="checkboxvalue4" class="checkboxType" type="checkbox">
+    </label>
+  </div>
+    <div class="col-md-4">
+    <h4>Radio Button</h4>
+    <label class="container">One
+      <input value="radioButton1" class="radioType" type="radio"  name="radio">
+    </label>
+    <label class="container">Two
+      <input value="radioButton2" class="radioType" type="radio" name="radio">
+    </label>
+    <label class="container">Three
+      <input value="radioButton3" class="radioType" type="radio" name="radio">
+    </label>
+    <label class="container">Four
+      <input value="radioButton4" class="radioType" type="radio" name="radio">
+    </label>
+    </div>
+    <h4>Dropdown</h4>
+    <div class="col-md-4">
+      <select class="selectType form-control">
+        <option value="dropdown1">Dropdown 1</option>
+        <option value="dropdown2">Dropdown 2</option>
+        <option value="dropdown3">Dropdown 3</option>
+      </select>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  var checkboxTypeData=[];var radioTypeData=[];var selectTypeData=[];
+  $('.checkboxType').on('change',function(){
+      var checkboxType  = $(this).val();
+      if ($(this).is(':checked')) {
+        checkboxTypeData.push(checkboxType);
+        var pageURL     = window.location.href;
+        var index     = window.location.href.indexOf('&checkboxType=');
+        
+          if(checkboxTypeData !=''){
+          if(index < 0){
+            window.history.replaceState('checkboxType', 'Title','');
+            window.history.pushState('checkboxType', 'Title', pageURL+'&checkboxType='+checkboxTypeData);
+          }
+          else{
+              var splitData2  = pageURL.match("&checkboxType=(.*)&");
+              var splitData1  = pageURL.match("&checkboxType=(.*)");
+              if(splitData2 != null){
+                var dividedData = splitData2[1].split('&');
+                var splitData   = dividedData[0];
+              }
+              else if(splitData2 == null){
+                var splitData   = splitData1[1];
+              }
+             var newData  = pageURL.replace('&checkboxType='+splitData, '&checkboxType='+checkboxTypeData);
+           
+            window.history.replaceState('checkboxType', 'Title','');
+            window.history.pushState('checkboxType', 'Title', newData);
+          }
+        }
+      } else {
+        checkboxTypeData.splice($.inArray(checkboxType, checkboxTypeData),1);
+        var pageURL     = window.location.href;
+        var index     = window.location.href.indexOf('&checkboxType=');
+        var splitData2  = pageURL.match("&checkboxType=(.*)&");
+        var splitData1  = pageURL.match("&checkboxType=(.*)");
+        if(splitData2 != null){
+          var dividedData = splitData2[1].split('&');
+          var splitData   = dividedData[0];
+        }
+        else if(splitData2 == null){
+          var splitData   = splitData1[1];
+        }
+          if(checkboxTypeData !=''){
+          var newData   = pageURL.replace('&checkboxType='+splitData, '&checkboxType='+checkboxTypeData);
+          if(index < 0){
+            window.history.replaceState('checkboxType', 'Title','');
+            window.history.pushState('checkboxType', 'Title', newData);
+          }
+          else{
+            window.history.replaceState('checkboxType', 'Title','');
+            window.history.pushState('checkboxType', 'Title', newData);
+          }
+        }
+        else{
+          var newData   = pageURL.replace('&checkboxType='+splitData, '');
+          window.history.replaceState('checkboxType', 'Title','');
+          window.history.pushState('checkboxType', 'Title', newData);
+        
+        }
+      }
+      
+  });
+  $('.radioType').on('change',function(){
+      var radioType  = $(this).val();
+      var radioTypeData  = [];
+        radioTypeData.push(radioType);  
+        var pageURL     = window.location.href;
+        var index     = window.location.href.indexOf('&radioType=');
+          if(radioTypeData !=''){
+          if(index < 0){
+            window.history.replaceState('radioType', 'Title','');
+            window.history.pushState('radioType', 'Title', pageURL+'&radioType='+radioTypeData);
+          }
+          else{
+              var splitData2  = pageURL.match("&radioType=(.*)&");
+              var splitData1  = pageURL.match("&radioType=(.*)");
+              if(splitData2 != null){
+                var dividedData = splitData2[1].split('&');
+                var splitData   = dividedData[0];
+              }
+              else if(splitData2 == null){
+                var splitData   = splitData1[1];
+              }
+             var newData  = pageURL.replace('&radioType='+splitData, '&radioType='+radioTypeData);
+           
+            window.history.replaceState('radioType', 'Title','');
+            window.history.pushState('radioType', 'Title', newData);
+          }
+        
+      } 
+  });
+  $('.selectType').on('change',function(){
+      var selectType  = $(this).val();
+      var selectTypeData  = [];
+        selectTypeData.push(selectType);  
+        var pageURL     = window.location.href;
+        var index     = window.location.href.indexOf('&selectType=');
+          if(selectTypeData !=''){
+          if(index < 0){
+            window.history.replaceState('selectType', 'Title','');
+            window.history.pushState('selectType', 'Title', pageURL+'&selectType='+selectTypeData);
+          }
+          else{
+              var splitData2  = pageURL.match("&selectType=(.*)&");
+              var splitData1  = pageURL.match("&selectType=(.*)");
+              if(splitData2 != null){
+                var dividedData = splitData2[1].split('&');
+                var splitData   = dividedData[0];
+              }
+              else if(splitData2 == null){
+                var splitData   = splitData1[1];
+              }
+             var newData  = pageURL.replace('&selectType='+splitData, '&selectType='+selectTypeData);
+           
+            window.history.replaceState('selectType', 'Title','');
+            window.history.pushState('selectType', 'Title', newData);
+          }
+        
+      } 
+  });
+</script>
